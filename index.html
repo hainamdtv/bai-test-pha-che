@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm tra Công thức Pha chế</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-container">
+        <!-- 1. Màn hình Chào mừng -->
+        <div id="welcome-screen" class="screen active">
+            <div class="logo-area">
+                <img src="logo.png" alt="Phố Núi Logo" class="main-logo">
+                <h1>HỆ THỐNG KIỂM TRA PHA CHẾ</h1>
+            </div>
+            <p class="subtitle">Vui lòng nhập thông tin để bắt đầu làm bài</p>
+            
+            <form id="start-form">
+                <div class="input-group">
+                    <label for="fullname">Họ và Tên</label>
+                    <input type="text" id="fullname" required placeholder="Nhập họ và tên của bạn...">
+                </div>
+                <div class="input-group">
+                    <label for="phone">Số điện thoại</label>
+                    <input type="text" id="phone" required placeholder="Nhập số điện thoại...">
+                </div>
+                <div class="input-group">
+                    <label for="store">Cửa hàng làm việc</label>
+                    <input type="text" id="store" required placeholder="Nhập tên chi nhánh/cửa hàng...">
+                </div>
+                <div class="input-group">
+                    <label for="position">Vị trí làm việc</label>
+                    <input type="text" id="position" required placeholder="Nhập vị trí (VD: Pha chế, Phục vụ)...">
+                </div>
+                <div class="rules">
+                    <p><strong>📝 Quy chế thi:</strong></p>
+                    <ul>
+                        <li>Thời gian tối đa mỗi câu: <strong>10 giây</strong>.</li>
+                        <li>Tổng số câu hỏi: <strong>45 câu</strong>.</li>
+                        <li>Quá 10 giây không trả lời, hệ thống tự động bỏ qua.</li>
+                    </ul>
+                </div>
+                <button type="submit" class="btn-primary" id="btn-start">BẮT ĐẦU BÀI TEST</button>
+            </form>
+        </div>
+
+        <!-- 2. Màn hình Làm bài -->
+        <div id="quiz-screen" class="screen hidden">
+            <div class="quiz-header">
+                <div class="user-info-display">
+                    👤 <span id="display-name">Nguyễn Văn A</span>
+                </div>
+                <div class="timer-display">
+                    ⏳ <span id="time-left">30</span>s
+                </div>
+            </div>
+            
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+            
+            <div class="question-container">
+                <h2 id="question-number">Câu hỏi 1/30</h2>
+                <p id="question-text">Nội dung câu hỏi sẽ hiển thị ở đây...</p>
+                <div id="options-container" class="options-grid">
+                    <!-- Các đáp án sẽ được chèn bằng Javascript -->
+                </div>
+            </div>
+            
+            <div class="quiz-footer">
+                <button id="btn-next" class="btn-secondary" disabled>Câu tiếp theo ➔</button>
+            </div>
+        </div>
+
+        <!-- 3. Màn hình Kết thúc -->
+        <div id="result-screen" class="screen hidden">
+            <div class="logo-area">
+                <img src="logo.png" alt="Phố Núi Logo" class="main-logo">
+                <h1>HOÀN THÀNH BÀI TEST</h1>
+            </div>
+            <div class="result-message">
+                <p>Cảm ơn bạn <strong id="result-name"></strong> đã hoàn thành bài kiểm tra.</p>
+                <p>Hệ thống đã tự động ghi nhận kết quả và nộp cho Quản lý.</p>
+                <p class="hidden-score-note">*(Điểm số được ẩn để đảm bảo tính công bằng)*</p>
+            </div>
+            <button id="btn-restart" class="btn-secondary">Quay lại trang chủ</button>
+        </div>
+    </div>
+
+    <!-- Nạp dữ liệu và logic -->
+    <script src="data1.js"></script>
+    <script src="data2.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+:root {
+    /* Coffee Brown Color Palette */
+    --coffee-darkest: #1C120C;
+    --coffee-dark: #2C1A14;
+    --coffee-medium: #4A2E24;
+    --coffee-light: #8C5A42;
+    --coffee-cream: #EAD8C3;
+    --gold: #D4AF37;
+    --white: #FFFFFF;
+    --error: #FF4C4C;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--coffee-darkest);
+    background-image: radial-gradient(circle at top right, var(--coffee-dark) 0%, var(--coffee-darkest) 100%);
+    color: var(--coffee-cream);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Glassmorphism Container */
+.glass-container {
+    background: rgba(44, 26, 20, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(234, 216, 195, 0.15);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 600px;
+    min-height: 500px;
+    padding: 40px 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.screen {
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Common UI */
+.logo-area {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.main-logo {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 15px;
+    border-radius: 50%; /* Nếu logo vuông, có thể dùng thuộc tính này để bo tròn */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.coffee-icon {
+    display: none; /* Ẩn đi vì đã thay bằng hình ảnh */
+}
+
+h1 {
+    color: var(--gold);
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.subtitle {
+    text-align: center;
+    color: rgba(234, 216, 195, 0.8);
+    margin-bottom: 30px;
+}
+
+/* Form Styles */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--coffee-cream);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(234, 216, 195, 0.3);
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--white);
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.input-group input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+}
+
+.rules {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid var(--gold);
+    margin-bottom: 30px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.rules ul {
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--gold) 0%, #b8860b 100%);
+    color: var(--coffee-darkest);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+}
+
+.btn-secondary {
+    background: var(--coffee-light);
+    color: var(--white);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #9d654a;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Quiz Screen */
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(234, 216, 195, 0.2);
+    padding-bottom: 15px;
+}
+
+.timer-display {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    color: var(--gold);
+}
+
+.timer-display.danger {
+    color: var(--error);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--gold);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+#question-number {
+    font-size: 16px;
+    color: var(--gold);
+    margin-bottom: 10px;
+}
+
+#question-text {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.option-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(234, 216, 195, 0.2);
+    padding: 15px 20px;
+    border-radius: 8px;
+    text-align: left;
+    color: var(--coffee-cream);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.option-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(234, 216, 195, 0.5);
+}
+
+.option-btn.selected {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: var(--gold);
+    color: var(--gold);
+    font-weight: bold;
+}
+
+/* Result Screen */
+.result-message {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.hidden-score-note {
+    font-size: 13px;
+    color: rgba(234, 216, 195, 0.6);
+    font-style: italic;
+    margin-top: 15px;
+}
