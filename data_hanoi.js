@@ -1,245 +1,149 @@
-﻿const hanoiBank = [
-    // Nâu Phố Núi Bản Đá
-    { question: "Món Nâu Phố Núi (Bản Đá) sử dụng loại cốc nào để phục vụ?", options: ["Cốc thủy tinh", "Cốc sứ", "Ly nhựa", "Cốc giấy"], answer: "Cốc thủy tinh" },
-    { question: "Lượng sữa đặc cho vào đáy cốc khi pha Nâu Phố Núi (Bản Đá) là bao nhiêu?", options: ["15g", "20g", "25g", "30g"], answer: "20g" },
-    { question: "Lượng đá viên chuẩn cho món Nâu Phố Núi (Bản Đá) là?", options: ["80g", "100g", "120g", "150g"], answer: "100g" },
-    { question: "Để chiết xuất cốt cafe cho Nâu Phố Núi, cần sử dụng bao nhiêu gram bột cafe nâu?", options: ["13g", "15g", "18g", "20g"], answer: "18g" },
-    { question: "Chiết xuất cafe cho Nâu Phố Núi (Bản Đá) cần bấm nút số mấy và thời gian bao lâu?", options: ["Nút 2 (33-36s)", "Nút 3 (36-40s)", "Nút 4 (55-65s)", "Nút 1 (20-25s)"], answer: "Nút 2 (33-36s)" },
-    { question: "Lượng cốt cafe thành phẩm thu được khi pha Nâu Phố Núi (Bản Đá) là bao nhiêu?", options: ["30g", "40g", "45g", "50g"], answer: "30g" },
-    
-    // Nâu Phố Núi Bản Nóng
-    { question: "Pha Nâu Phố Núi (Bản Nóng) sử dụng nút chiết xuất số mấy trên máy?", options: ["Nút 1", "Nút 2", "Nút 3", "Nút 4"], answer: "Nút 4" },
-    { question: "Thời gian chiết xuất cafe Nâu Phố Núi (Bản Nóng) kéo dài trong khoảng?", options: ["33-36s", "36-40s", "45-50s", "55-65s"], answer: "55-65s" },
-    { question: "Cốt thành phẩm của Nâu Phố Núi (Bản Nóng) là bao nhiêu gram?", options: ["30g", "35g", "40g", "45g"], answer: "45g" },
-    
-    // Đen Phố Núi Bản Đá
-    { question: "Đen Phố Núi (Bản Đá) dùng bột cafe gì và lượng bao nhiêu?", options: ["18g cafe nâu", "18g cafe đen", "13g cafe Ý", "15g cafe đen"], answer: "18g cafe đen" },
-    { question: "Bấm nút số mấy để chiết xuất cốt cho Đen Phố Núi (Bản Đá)?", options: ["Nút 1", "Nút 2", "Nút 3", "Nút 4"], answer: "Nút 3" },
-    { question: "Lượng đường nước thêm vào Đen Phố Núi (Bản Đá) là bao nhiêu?", options: ["5ml", "10ml", "15ml", "20ml"], answer: "5ml" },
-    { question: "Thời gian chiết xuất của Đen Phố Núi (Bản Đá) là?", options: ["26-30s", "33-36s", "36-40s", "55-60s"], answer: "36-40s" },
-    
-    // Đen Phố Núi Bản Nóng
-    { question: "Đen Phố Núi (Bản Nóng) được phục vụ kèm với gì?", options: ["Đường nước", "1 thanh đường que", "Sữa đặc", "Sữa tươi"], answer: "1 thanh đường que" },
-    { question: "Lượng cốt cafe thành phẩm của Đen Phố Núi (Bản Nóng) là?", options: ["30g", "40g", "45g", "50g"], answer: "45g" },
-    
-    // Bạc Xỉu Truyền Thống
-    { question: "Lượng Rich và Whip dùng trong Bạc Xỉu Truyền Thống (Bản Đá) là bao nhiêu?", options: ["10ml Rich + 10ml Whip", "20ml Rich + 10ml Whip", "10ml Rich + 20ml Whip", "15ml Rich + 15ml Whip"], answer: "10ml Rich + 10ml Whip" },
-    { question: "Bạc Xỉu Truyền Thống (Bản Đá) sử dụng bao nhiêu ml sữa tươi?", options: ["20ml", "30ml", "40ml", "50ml"], answer: "30ml" },
-    { question: "Lượng đá viên chuẩn cho Bạc Xỉu Truyền Thống (Bản Đá) là?", options: ["100g", "120g", "150g", "180g"], answer: "120g" },
-    { question: "Bạc Xỉu Truyền Thống sử dụng loại bột cafe nào?", options: ["Cafe đen", "Cafe Ý", "Cafe nâu", "Cafe muối"], answer: "Cafe nâu" },
-    { question: "Bạc Xỉu Truyền Thống (Bản Nóng) sử dụng bao nhiêu ml sữa tươi để sục nóng?", options: ["150ml", "180ml", "200ml", "220ml"], answer: "180ml" },
-    
-    // Bạc Xỉu Sữa Hạt
-    { question: "Bạc Xỉu Sữa Hạt (Bản Đá) sử dụng lượng sữa đặc và sữa hạt lần lượt là?", options: ["20ml sữa đặc + 50ml sữa hạt", "30ml sữa đặc + 50ml sữa hạt", "30ml sữa đặc + 40ml sữa hạt", "20ml sữa đặc + 60ml sữa hạt"], answer: "30ml sữa đặc + 50ml sữa hạt" },
-    { question: "Bạc Xỉu Sữa Hạt chiết xuất từ loại bột cafe nào?", options: ["Cafe nâu (18g)", "Cafe đen (18g)", "Cafe Ý (13g)", "Cafe Ý (18g)"], answer: "Cafe Ý (13g)" },
-    { question: "Cốt cafe cho Bạc Xỉu Sữa Hạt lấy ở Nút số mấy?", options: ["Nút 1", "Nút 2", "Nút 3", "Nút 4"], answer: "Nút 2" },
-    { question: "Bạc Xỉu Sữa Hạt (Bản Nóng) sử dụng lượng sữa hạt sục nóng là?", options: ["150ml", "180ml", "200ml", "250ml"], answer: "180ml" },
-    
-    // Cà Phê Muối
-    { question: "Cà Phê Muối có được phục vụ dưới dạng Nóng không?", options: ["Có, luôn làm nóng", "Chỉ làm đá", "Tùy yêu cầu khách", "Chỉ phục vụ mang đi"], answer: "Chỉ làm đá" },
-    { question: "Lượng cốt cafe muối dùng trong một ly Cà Phê Muối là?", options: ["30ml", "40ml", "50ml", "60ml"], answer: "40ml" },
-    { question: "Cà Phê Muối sử dụng lượng sữa đặc là bao nhiêu?", options: ["10ml", "15ml", "20ml", "25ml"], answer: "15ml" },
-    { question: "Để trang trí Cà Phê Muối, cần rắc thêm gì lên trên lớp kem mặn?", options: ["Bột matcha", "Bột hạt dẻ", "Bột cacao", "Dừa sấy khô"], answer: "Bột cacao" },
-    { question: "Lượng kem mặn được rót lên trên ly Cà Phê Muối là bao nhiêu?", options: ["30g", "40g", "50g", "60g"], answer: "40g" },
-    
-    // Nâu / Đen Sài Gòn
-    { question: "Nâu Sài Gòn sử dụng hỗn hợp nền gồm những thành phần nào?", options: ["30ml sữa đặc + 20ml Rich + 10ml sữa tươi", "20ml sữa đặc + 10ml Rich + 20ml Whip", "30ml sữa đặc + 10ml Rich + 10ml sữa tươi", "20ml sữa đặc + 20ml sữa tươi"], answer: "30ml sữa đặc + 20ml Rich + 10ml sữa tươi" },
-    { question: "Cốt cafe dùng cho Nâu Sài Gòn được chiết xuất từ nút mấy?", options: ["Nút 1", "Nút 2", "Nút 3", "Nút 4"], answer: "Nút 2" },
-    { question: "Đen Sài Gòn cần lắc (Shake) mấy lần trước khi đổ ra cốc?", options: ["Không cần lắc", "Lắc 2 lần", "Lắc 3 lần", "Lắc 5 lần"], answer: "Lắc 3 lần" },
-    { question: "Lượng đường nước cho vào Đen Sài Gòn là?", options: ["5ml", "10ml", "15ml", "20ml"], answer: "10ml" },
-    { question: "Cốt cafe dùng cho Đen Sài Gòn chiết xuất từ loại hạt nào và bấm nút mấy?", options: ["18g cafe nâu (Nút 2)", "18g cafe đen (Nút 3)", "13g cafe Ý (Nút 2)", "18g cafe đen (Nút 4)"], answer: "18g cafe đen (Nút 3)" },
-    
-    // Capucino / Latte
-    { question: "Capucino và Latte (Nóng) sử dụng loại bột cafe nào?", options: ["13g bột cafe Ý", "18g bột cafe đen", "18g bột cafe nâu", "15g bột cafe Ý"], answer: "13g bột cafe Ý" },
-    { question: "Lượng sữa tươi sục nóng cho món Capucino / Latte là bao nhiêu?", options: ["150ml", "180ml", "200ml", "220ml"], answer: "200ml" },
-    { question: "Kỹ thuật rót sữa của Latte khác Capucino như thế nào?", options: ["Latte múc bọt đổ hình, Capucino đổ trực tiếp", "Latte đổ nghệ thuật trực tiếp, Capucino dùng thìa múc bọt đổ hình", "Cả hai đều rót trực tiếp", "Cả hai đều múc bọt đổ hình"], answer: "Latte đổ nghệ thuật trực tiếp, Capucino dùng thìa múc bọt đổ hình" },
-    
-    // Americano
-    { question: "Americano (Đá) sử dụng lượng nước lọc là bao nhiêu?", options: ["100ml", "120ml", "150ml", "180ml"], answer: "120ml" },
-    { question: "Americano (Nóng) sử dụng lượng nước nóng là bao nhiêu?", options: ["100ml", "120ml", "150ml", "180ml"], answer: "150ml" },
-    { question: "Cốt cafe Ý cho Americano được lấy bao nhiêu gram?", options: ["20g", "30g", "40g", "45g"], answer: "30g" },
-    
-    // Sen Huế Signature
-    { question: "Lượng nước cốt sen cho Sen Huế Signature (Size L) là bao nhiêu?", options: ["40ml", "50ml", "60ml", "70ml"], answer: "60ml" },
-    { question: "Topping trang trí Sen Huế Signature KHÔNG bao gồm thành phần nào sau đây?", options: ["Hạt sen", "Dừa sợi", "Nhãn", "Thạch dừa"], answer: "Thạch dừa" },
-    { question: "Lượng đá viên cho món Sen Huế Signature là?", options: ["100g", "120g", "150g", "180g"], answer: "150g" },
-    
-    // Lục Trà Sữa
-    { question: "Lượng Lục trà dùng cho Lục Trà Sữa (Size L) là?", options: ["120ml", "150ml", "180ml", "200ml"], answer: "150ml" },
-    { question: "Thạch dừa dùng cho Lục Trà Sữa là bao nhiêu gram?", options: ["30g", "40g", "50g", "60g"], answer: "50g" },
-    { question: "Lượng đá viên chuẩn cho Lục Trà Sữa là?", options: ["150g", "180g", "200g", "250g"], answer: "180g" },
-    
-    // Lục Xoài Sữa
-    { question: "Topping của Lục Xoài Sữa bao gồm những loại thạch nào?", options: ["Chỉ thạch dừa", "Chỉ pudding xoài", "Thạch hồng đào", "Pudding xoài và Thạch dừa"], answer: "Pudding xoài và Thạch dừa" },
-    { question: "Lượng sữa tươi cho Lục Xoài Sữa (Size L) là?", options: ["30ml", "40ml", "50ml", "60ml"], answer: "50ml" },
-    { question: "Lục Xoài Sữa có sử dụng đường nước ngoài mứt xoài không?", options: ["Có, thêm 10ml đường", "Có, thêm 5ml đường", "Không, chỉ dùng mứt và sữa", "Tùy khách yêu cầu"], answer: "Không, chỉ dùng mứt và sữa" },
-    
-    // Trà Sữa Đào Hồng
-    { question: "Mứt đào hồng dùng cho Trà Sữa Đào Hồng là bao nhiêu gram?", options: ["15g", "20g", "25g", "30g"], answer: "20g" },
-    { question: "Trà Sữa Đào Hồng (Size L) dùng bao nhiêu ml sữa đặc?", options: ["15ml", "20ml", "25ml", "30ml"], answer: "20ml" },
-    { question: "Lượng thạch dừa cho Trà Sữa Đào Hồng (Size L) là?", options: ["40g", "50g", "60g", "70g"], answer: "50g" },
-    
-    // Nếp Hạt Dẻ
-    { question: "Nếp Hạt Dẻ sử dụng loại trà nào làm nền?", options: ["Hồng trà", "Lục trà", "Trà gạo", "Trà ô long"], answer: "Lục trà" },
-    { question: "Lượng lá nếp dùng cho món Nếp Hạt Dẻ (Size L) là?", options: ["10ml", "15ml", "20ml", "25ml"], answer: "15ml" },
-    { question: "Kem hạt dẻ được phủ lên trên Nếp Hạt Dẻ là bao nhiêu gram?", options: ["30g", "40g", "50g", "60g"], answer: "40g" },
-    { question: "Lượng đường nước cho vào Nếp Hạt Dẻ là?", options: ["Không dùng đường", "5ml", "10ml", "15ml"], answer: "10ml" },
-    
-    // Hồng Trà Hạt Dẻ
-    { question: "Hồng Trà Hạt Dẻ (Size L) dùng bao nhiêu Hồng trà?", options: ["60ml", "70ml", "80ml", "90ml"], answer: "70ml" },
-    { question: "Topping của Hồng Trà Hạt Dẻ bao gồm?", options: ["Chỉ thạch dừa", "Chỉ kem hạt dẻ", "Thạch dừa và Kem hạt dẻ", "Thạch dừa và Vụn hạt dẻ"], answer: "Thạch dừa và Kem hạt dẻ" },
-    { question: "Lượng sữa đặc cho Hồng Trà Hạt Dẻ (Size L) là?", options: ["15ml", "20ml", "25ml", "30ml"], answer: "20ml" },
-    { question: "Lượng đá viên cho Hồng Trà Hạt Dẻ (Size L) là?", options: ["150g", "160g", "180g", "200g"], answer: "180g" },
+const hanoiBank = [
+    // Nhóm Cà phê (Cốc thủy tinh)
+    { question: "Nâu phố núi (đá) sử dụng lượng sữa đặc là bao nhiêu?", options: ["15g", "20g", "25g", "30g"], answer: "20g" },
+    { question: "Lượng đá dùng cho Nâu phố núi (đá) là bao nhiêu?", options: ["80g", "100g", "120g", "150g"], answer: "100g" },
+    { question: "Định lượng cafe nâu dùng cho Nâu phố núi (đá) là?", options: ["13g", "15g", "18g", "20g"], answer: "18g" },
+    { question: "Nâu phố núi (đá) bấm chiết xuất cốt cafe ở nút mấy, thời gian bao lâu và ra lượng thành phẩm là bao nhiêu?", options: ["Nút 2 (33-36s, 30g)", "Nút 3 (36-40s, 40g)", "Nút 4 (55-65s, 45g)", "Nút 1 (20-25s, 20g)"], answer: "Nút 2 (33-36s, 30g)" },
+    { question: "Nâu nóng phố núi sử dụng lượng sữa đặc là bao nhiêu?", options: ["15g", "20g", "25g", "30g"], answer: "20g" },
+    { question: "Nâu nóng phố núi bấm chiết xuất cốt cafe ở nút mấy, thời gian bao lâu và ra lượng thành phẩm là bao nhiêu?", options: ["Nút 2 (33-36s, 30g)", "Nút 3 (36-40s, 40g)", "Nút 4 (55-65s, 45g)", "Nút 2 (26-30s, 30g)"], answer: "Nút 4 (55-65s, 45g)" },
+    { question: "Đen phố núi (đá) sử dụng loại bột cafe nào và định lượng bao nhiêu?", options: ["18g cafe nâu", "13g cafe ý", "18g cafe đen", "15g cafe đen"], answer: "18g cafe đen" },
+    { question: "Đen phố núi (đá) bấm chiết xuất cốt cafe ở nút mấy, thời gian bao lâu và ra lượng thành phẩm là bao nhiêu?", options: ["Nút 2 (33-36s, 30g)", "Nút 3 (36-40s, 40g)", "Nút 4 (55-65s, 45g)", "Nút 3 (40-45s, 45g)"], answer: "Nút 3 (36-40s, 40g)" },
+    { question: "Đen phố núi (đá) thêm lượng đường nước là bao nhiêu?", options: ["5ml", "10ml", "15ml", "Không thêm đường"], answer: "5ml" },
+    { question: "Đen nóng phố núi chiết xuất ở nút mấy và ra lượng thành phẩm bao nhiêu?", options: ["Nút 3 ra 40g", "Nút 4 ra 45g", "Nút 2 ra 30g", "Nút 4 ra 60g"], answer: "Nút 4 ra 45g" },
+    { question: "Đen nóng phố núi được phục vụ kèm với gì?", options: ["1 cốc trà đá", "1 thanh đường que", "5ml đường nước", "20ml sữa đặc"], answer: "1 thanh đường que" },
+    { question: "Bạc xỉu đá sử dụng lượng whip và rich là bao nhiêu?", options: ["10ml whip, 10ml rich", "20ml whip, 10ml rich", "10ml whip, 20ml rich", "20ml whip, 20ml rich"], answer: "10ml whip, 10ml rich" },
+    { question: "Bạc xỉu đá sử dụng lượng sữa tươi và sữa đặc là bao nhiêu?", options: ["20ml sữa tươi, 20ml sữa đặc", "30ml sữa tươi, 20ml sữa đặc", "30ml sữa tươi, 30ml sữa đặc", "20ml sữa tươi, 30ml sữa đặc"], answer: "30ml sữa tươi, 20ml sữa đặc" },
+    { question: "Bạc xỉu đá dùng loại bột cafe nào và ấn nút mấy?", options: ["18g cafe đen, nút 3", "18g cafe nâu, nút 2", "13g cafe ý, nút 2", "18g cafe nâu, nút 4"], answer: "18g cafe nâu, nút 2" },
+    { question: "Bạc xỉu nóng sử dụng lượng sữa tươi sục nóng là bao nhiêu?", options: ["150ml", "180ml", "200ml", "220ml"], answer: "180ml" },
+    { question: "Bạc xỉu sữa hạt (đá) sử dụng lượng sữa đặc và sữa hạt là bao nhiêu?", options: ["20ml sữa đặc, 50ml sữa hạt", "30ml sữa đặc, 50ml sữa hạt", "30ml sữa đặc, 60ml sữa hạt", "20ml sữa đặc, 60ml sữa hạt"], answer: "30ml sữa đặc, 50ml sữa hạt" },
+    { question: "Bạc xỉu sữa hạt sử dụng loại bột cafe nào, ấn nút mấy?", options: ["18g cafe nâu, nút 2", "18g cafe đen, nút 3", "13g cafe ý, nút 2", "15g cafe ý, nút 2"], answer: "13g cafe ý, nút 2" },
+    { question: "Bạc xỉu sữa hạt (nóng) sử dụng lượng sữa hạt sục nóng là bao nhiêu?", options: ["150ml", "180ml", "200ml", "220ml"], answer: "180ml" },
+    { question: "Cà phê muối (đá) sử dụng lượng sữa đặc và lượng cafe muối là bao nhiêu?", options: ["15ml sữa đặc, 40ml cafe muối", "20ml sữa đặc, 40ml cafe muối", "15ml sữa đặc, 30ml cafe muối", "20ml sữa đặc, 30ml cafe muối"], answer: "15ml sữa đặc, 40ml cafe muối" },
+    { question: "Cà phê muối (đá) có lượng đá và kem mặn là bao nhiêu?", options: ["100g đá, 30g kem mặn", "120g đá, 40g kem mặn", "100g đá, 40g kem mặn", "120g đá, 50g kem mặn"], answer: "100g đá, 40g kem mặn" },
+    { question: "Decor của Cà phê muối là gì?", options: ["Rắc bột matcha", "Rắc bột cacao", "Rắc bột quế", "Dừa sấy khô"], answer: "Rắc bột cacao" },
+    { question: "Americano đá sử dụng lượng nước lọc là bao nhiêu?", options: ["100ml", "120ml", "150ml", "180ml"], answer: "120ml" },
+    { question: "Americano (đá và nóng) sử dụng loại bột cafe nào, ấn nút mấy?", options: ["18g cafe đen, nút 3", "18g cafe nâu, nút 2", "13g cafe ý, nút 2", "18g cafe ý, nút 2"], answer: "18g cafe ý, nút 2" },
+    { question: "Americano nóng sử dụng lượng nước nóng là bao nhiêu?", options: ["100ml", "120ml", "150ml", "180ml"], answer: "150ml" },
+    { question: "Nâu sài gòn (chỉ làm đá) sử dụng lượng sữa đặc, rich, sữa tươi là bao nhiêu?", options: ["30ml sữa đặc, 20ml rich, 10ml sữa tươi", "20ml sữa đặc, 10ml rich, 20ml sữa tươi", "30ml sữa đặc, 10ml rich, 20ml sữa tươi", "20ml sữa đặc, 20ml rich, 10ml sữa tươi"], answer: "30ml sữa đặc, 20ml rich, 10ml sữa tươi" },
+    { question: "Nâu sài gòn dùng cốt cafe loại nào?", options: ["18g cafe đen", "18g cafe nâu", "13g cafe ý", "15g cafe nâu"], answer: "18g cafe nâu" },
+    { question: "Đen sài gòn sử dụng lượng đường nước là bao nhiêu?", options: ["5ml", "10ml", "15ml", "20ml"], answer: "10ml" },
+    { question: "Đen sài gòn cần lắc bao nhiêu lần trước khi đổ ra cốc?", options: ["Không cần lắc", "Lắc 2 lần", "Lắc 3 lần", "Lắc 5 lần"], answer: "Lắc 3 lần" },
+    { question: "Capucino nóng sử dụng lượng cafe ý và sữa sục nóng như thế nào?", options: ["13g cafe ý, 200ml sữa sục nóng dùng thìa đổ hình", "18g cafe ý, 180ml sữa sục nóng đổ hình", "13g cafe ý, 200ml sữa sục nóng đổ trực tiếp", "15g cafe ý, 150ml sữa sục nóng dùng thìa đổ hình"], answer: "13g cafe ý, 200ml sữa sục nóng dùng thìa đổ hình" },
+    { question: "Latte nóng sử dụng lượng cafe ý và sữa sục nóng như thế nào?", options: ["13g cafe ý, 200ml sữa sục nóng đổ trực tiếp", "13g cafe ý, 200ml sữa sục nóng dùng thìa đổ hình", "18g cafe ý, 180ml sữa sục nóng đổ hình", "15g cafe ý, 200ml sữa sục nóng đổ trực tiếp"], answer: "13g cafe ý, 200ml sữa sục nóng đổ hình" },
 
-    // Trà Sữa Gạo
-    { question: "Lượng Trà sữa gạo dùng cho món Trà Sữa Gạo (Size L) là?", options: ["200ml", "250ml", "280ml", "300ml"], answer: "250ml" },
-    { question: "Trà Sữa Gạo có dùng thêm sữa tươi không?", options: ["Có, thêm 30ml", "Có, thêm 50ml", "Không, chỉ dùng cốt trà sữa gạo chuẩn bị sẵn", "Tùy yêu cầu khách"], answer: "Không, chỉ dùng cốt trà sữa gạo chuẩn bị sẵn" },
-    
-    // Trà Sữa Gạo Hạt Dẻ
-    { question: "Lượng Trà sữa gạo cho món Trà Sữa Gạo Hạt Dẻ (Size L) là bao nhiêu?", options: ["150ml", "200ml", "250ml", "300ml"], answer: "200ml" },
-    { question: "Tại sao Trà Sữa Gạo Hạt Dẻ lại dùng ít cốt trà gạo hơn so với Trà Sữa Gạo nguyên bản?", options: ["Do lỗi công thức", "Do đã có kem hạt dẻ chiếm thể tích", "Để giảm độ ngọt", "Để thêm nhiều đá hơn"], answer: "Do đã có kem hạt dẻ chiếm thể tích" },
-    { question: "Topping của Trà Sữa Gạo Hạt Dẻ gồm những gì?", options: ["Chỉ kem hạt dẻ", "Thạch dừa và Thạch phô mai", "Thạch dừa và Kem hạt dẻ", "Pudding xoài và Kem hạt dẻ"], answer: "Thạch dừa và Kem hạt dẻ" },
-    
-    // Trà Sữa Gạo Pudding Phô Mai
-    { question: "Lượng Thạch phô mai dùng cho Trà Sữa Gạo Pudding Phô Mai là?", options: ["50g", "60g", "70g", "80g"], answer: "70g" },
-    
-    // Bơ Dừa Non
-    { question: "Hỗn hợp đáy cốc của Bơ Dừa Non KHÔNG bao gồm thành phần nào?", options: ["35ml cốt dừa", "15ml đường", "10ml whipping", "20g sữa đặc"], answer: "20g sữa đặc" },
-    { question: "Thành phần nước dùng để xay cối Bơ Dừa Non gồm những gì?", options: ["50ml nước lọc", "30ml nước lọc", "70ml nước lọc", "Không dùng nước lọc"], answer: "50ml nước lọc" },
-    { question: "Lượng siro lá nếp dùng khi xay Bơ Dừa Non là bao nhiêu?", options: ["5ml", "10ml", "15ml", "20ml"], answer: "10ml" },
-    { question: "Bơ Dừa Non được rắc loại hạt nào lên trên để trang trí?", options: ["Hạt dẻ", "Đậu phộng", "Vụn điều (3g)", "Dừa khô (5g)"], answer: "Vụn điều (3g)" },
-    { question: "Lượng sữa tươi xay kèm trong cối Bơ Dừa Non là?", options: ["20ml", "30ml", "40ml", "50ml"], answer: "30ml" },
-    
-    // Kem Bơ
-    { question: "Sinh tố nền của món Kem Bơ xay với bao nhiêu gram đá viên?", options: ["20g", "30g", "40g", "50g"], answer: "30g" },
-    { question: "Kem dừa đặt lên trên cốc Kem Bơ có khối lượng là bao nhiêu?", options: ["50g (1 viên)", "80g (1 viên)", "100g (2 viên)", "120g (2 viên)"], answer: "80g (1 viên)" },
-    { question: "Trang trí (decor) món Kem Bơ bằng gì?", options: ["Vụn điều", "Dừa khô (5g)", "Bột cacao", "Bột matcha"], answer: "Dừa khô (5g)" },
-    { question: "Lượng sữa đặc dùng xay trong món Kem Bơ là?", options: ["10ml", "20ml", "30ml", "40ml"], answer: "20ml" },
-    
-    // Sinh Tố Bơ
-    { question: "Sinh Tố Bơ có thêm thành phần nào xay cùng mà Bơ Dừa Non không xay cùng cối?", options: ["Sữa tươi", "Nước lọc", "Cốt dừa (35ml)", "Sữa đặc"], answer: "Cốt dừa (35ml)" },
-    { question: "Lượng đường dùng để xay Sinh Tố Bơ là bao nhiêu?", options: ["10ml", "15ml", "20ml", "25ml"], answer: "15ml" },
-    { question: "Đá viên dùng trong Sinh Tố Bơ là bao nhiêu gram?", options: ["30g", "50g", "70g", "100g"], answer: "30g" },
-    
-    // Đồ Nóng - Sữa Gừng Táo Đỏ
-    { question: "Sữa Gừng Táo Đỏ sục nóng bao nhiêu ml sữa tươi?", options: ["150ml", "180ml", "200ml", "220ml"], answer: "200ml" },
-    { question: "Sữa Gừng Táo Đỏ sử dụng bao nhiêu ml sốt táo đỏ?", options: ["5ml", "10ml", "15ml", "20ml"], answer: "10ml" },
-    { question: "Trang trí (decor) Sữa Gừng Táo Đỏ bằng gì?", options: ["2 lát gừng, 2 táo đỏ, 2g hoa hồng", "1 lát gừng, 3 táo đỏ", "Bột quế", "Không trang trí"], answer: "2 lát gừng, 2 táo đỏ, 2g hoa hồng" },
-    
-    // Đồ Nóng - Lài Sữa Hạt Dẻ
-    { question: "Lài Sữa Hạt Dẻ sục nóng hỗn hợp nền gồm những gì?", options: ["150ml lục trà + 20ml sữa đặc + 20g bột hạt dẻ", "150ml sữa tươi + 20g bột hạt dẻ", "100ml lục trà + 50ml sữa tươi + bột hạt dẻ", "150ml hồng trà + sữa đặc + bột hạt dẻ"], answer: "150ml lục trà + 20ml sữa đặc + 20g bột hạt dẻ" }
-,
-    // Đồ Nóng - Lài Sữa Hạt Dẻ & Cacao
-    { question: "Lớp kem phủ trên món Lài Sữa Hạt Dẻ là bao nhiêu gram?", options: ["20g", "30g", "40g", "50g"], answer: "40g" },
-    { question: "Cacao Nóng sử dụng bao nhiêu gam bột cacao?", options: ["5g", "10g", "15g", "20g"], answer: "10g" },
-    { question: "Lượng sữa đặc dùng cho Cacao Nóng là?", options: ["20g", "30g", "40g", "50g"], answer: "30g" },
-    { question: "Nước sôi dùng để đánh tan cacao ban đầu là bao nhiêu ml?", options: ["30ml", "40ml", "50ml", "60ml"], answer: "50ml" },
-    
-    // Trà Trái Cây - Lục Trà Xoài
-    { question: "Nền trà dùng cho món Lục Trà Xoài là gì?", options: ["Hồng trà", "Trà gạo", "Lục trà", "Trà ô long"], answer: "Lục trà" },
-    { question: "Lượng Lục trà dùng cho Lục Trà Xoài là bao nhiêu?", options: ["60ml", "80ml", "100ml", "120ml"], answer: "80ml" },
-    { question: "Lục Trà Xoài có sử dụng bao nhiêu ml nước lọc?", options: ["30ml", "40ml", "50ml", "60ml"], answer: "50ml" },
-    { question: "Lượng mứt xoài trong Lục Trà Xoài là?", options: ["20ml", "25ml", "30ml", "35ml"], answer: "30ml" },
-    { question: "Trang trí (decor) món Lục Trà Xoài bằng gì?", options: ["Thạch dừa", "Pudding xoài", "Xoài tươi", "Thạch đào"], answer: "Xoài tươi" },
-    
-    // Trà Trái Cây - Trà Đào Sấu
-    { question: "Trà Đào Sấu sử dụng loại nền trà nào?", options: ["Lục trà", "Hồng trà", "Trà lài", "Trà bá tước"], answer: "Lục trà" },
-    { question: "Lượng nước cốt sấu dùng cho món Trà Đào Sấu là?", options: ["20ml", "30ml", "40ml", "50ml"], answer: "30ml" },
-    { question: "Topping trang trí của Trà Đào Sấu KHÔNG bao gồm thành phần nào?", options: ["70g thạch atiso", "3 quả sấu", "30ml cốt atiso", "Đào miếng"], answer: "Đào miếng" },
-    { question: "Cốt atiso trong Trà Đào Sấu được rót ở công đoạn nào?", options: ["Khuấy cùng trà lúc đầu", "Rót lên trên cùng sau khi đã đổ ra cốc", "Lắc cùng đá", "Bỏ vào dưới đáy cốc"], answer: "Rót lên trên cùng sau khi đã đổ ra cốc" },
-    
-    // Trà Trái Cây - Lục Trà Me Đác
-    { question: "Lượng mứt me đác dùng cho Lục Trà Me Đác là bao nhiêu?", options: ["20ml", "25ml", "30ml", "40ml"], answer: "30ml" },
-    { question: "Lục Trà Me Đác sử dụng bao nhiêu ml Lục trà?", options: ["60ml", "80ml", "100ml", "120ml"], answer: "80ml" },
-    { question: "Loại thạch nào được sử dụng trong Lục Trà Me Đác?", options: ["Thạch dừa", "Thạch atiso", "Thạch hồng đào", "Thạch trà"], answer: "Thạch hồng đào" },
-    
-    // Trà Trái Cây - Mơ Trà
-    { question: "Mơ Trà sử dụng đường hoa quả là bao nhiêu ml?", options: ["5ml", "10ml", "15ml", "Không dùng"], answer: "5ml" },
-    { question: "Topping quả dùng trong món Mơ Trà là bao nhiêu gram?", options: ["20g (2 quả)", "30g (3 quả)", "40g (4 quả)", "50g (5 quả)"], answer: "30g (3 quả)" },
-    { question: "Mơ Trà có sử dụng nước cốt Atiso không?", options: ["Có, rót 30ml lên trên cùng", "Có, khuấy 20ml cùng trà", "Không sử dụng", "Chỉ dùng cho size L"], answer: "Có, rót 30ml lên trên cùng" },
-    
-    // Trà Trái Cây - Trà Đào Cam Sả
-    { question: "Trà Đào Cam Sả sử dụng loại trà nào?", options: ["Lục trà", "Hồng trà", "Trà ô long", "Trà nhài"], answer: "Hồng trà" },
-    { question: "Lượng Hồng trà dùng trong Trà Đào Cam Sả là rất ít, cụ thể là bao nhiêu?", options: ["10ml", "20ml", "30ml", "40ml"], answer: "20ml" },
-    { question: "Trà Đào Cam Sả dùng bao nhiêu nước sôi để pha cốt?", options: ["50ml", "70ml", "100ml", "120ml"], answer: "70ml" },
-    { question: "Lượng cốt sả trong món Trà Đào Cam Sả là bao nhiêu?", options: ["20ml", "25ml", "30ml", "40ml"], answer: "30ml" },
-    { question: "Siro cam đỏ dùng trong Trà Đào Cam Sả là bao nhiêu ml?", options: ["3ml", "5ml", "10ml", "15ml"], answer: "3ml" },
-    { question: "Trang trí Trà Đào Cam Sả bằng gì?", options: ["50g đào (2 miếng) và 1 lát cam vàng (30g)", "30g đào và 2 lát cam vàng", "Thạch đào và 1 lát cam vàng", "Đào tươi, cam vàng và lá bạc hà"], answer: "50g đào (2 miếng) và 1 lát cam vàng (30g)" },
-    
-    // Trà Trái Cây - Xoài Lài Chanh Leo
-    { question: "Món Xoài Lài Chanh Leo sử dụng bao nhiêu túi chanh leo (pulp)?", options: ["Nửa túi", "1 túi", "1.5 túi", "2 túi"], answer: "1 túi" },
-    { question: "Lượng mứt xoài trong món Xoài Lài Chanh Leo là bao nhiêu gram?", options: ["15g", "20g", "25g", "30g"], answer: "20g" },
-    { question: "Loại thạch nào được thêm vào Xoài Lài Chanh Leo?", options: ["Thạch dừa", "Thạch đào", "Thạch trà (70g)", "Thạch atiso"], answer: "Thạch trà (70g)" },
-    
-    // Nước Trái Cây - Dâu Tằm
-    { question: "Món Dâu Tằm sử dụng bao nhiêu tép dâu?", options: ["1 tép (30ml)", "2 tép (60ml)", "3 tép (90ml)", "4 tép (120ml)"], answer: "2 tép (60ml)" },
-    { question: "Món Dâu Tằm được mix thêm mứt gì để tăng hương vị?", options: ["Mứt xoài", "Mứt đào (20g)", "Mứt dâu tây", "Không mix thêm mứt"], answer: "Mứt đào (20g)" },
-    { question: "Trang trí món Dâu Tằm bằng trái cây gì?", options: ["Dâu tây tươi", "Dâu tằm tươi", "Cam vàng (30g)", "Chanh vàng"], answer: "Cam vàng (30g)" },
-    
-    // Nước Trái Cây - Dưa Hấu & Cam Tươi
-    { question: "Để làm 1 ly nước Dưa Hấu, cần ép bao nhiêu gram dưa hấu tươi?", options: ["200g", "300g", "400g", "500g"], answer: "400g" },
-    { question: "Lượng đường thêm vào nước ép Dưa Hấu là?", options: ["5ml", "10ml", "15ml", "20ml"], answer: "10ml" },
-    { question: "Để làm 1 ly Cam Tươi, cần vắt bao nhiêu gram cam quả?", options: ["300g", "400g", "500g", "600g"], answer: "500g" },
-    { question: "Lượng đường thêm vào ly nước Cam Tươi là?", options: ["10ml", "15ml", "20ml", "25ml"], answer: "15ml" },
-    
-    // Nước Trái Cây - Chanh Leo Xoài
-    { question: "Món Chanh Leo Xoài dùng bao nhiêu túi chanh leo?", options: ["1 túi (30ml)", "2 túi", "3 túi", "Không dùng túi, dùng cốt lỏng"], answer: "1 túi (30ml)" },
-    { question: "Lượng nước lọc dùng trong Chanh Leo Xoài là?", options: ["100ml", "120ml", "150ml", "180ml"], answer: "120ml" },
-    
-    // Nước Trái Cây - Chanh Vàng Violet
-    { question: "Chanh Vàng Violet (Đá) rót thành phần gì lên trên cùng để tạo màu?", options: ["Cốt atiso", "Cốt hoa đậu biếc (30ml)", "Siro violet", "Cốt dâu tằm"], answer: "Cốt hoa đậu biếc (30ml)" },
-    { question: "Chanh Vàng Violet sử dụng bao nhiêu ml đường hoa quả?", options: ["5ml", "10ml", "15ml", "Không dùng"], answer: "5ml" },
-    
-    // Nước Trái Cây - Chanh Vàng Nóng
-    { question: "Chanh Vàng (Nóng) sử dụng kỹ thuật pha chế nào?", options: ["Khuấy đều trực tiếp", "Lắc (Shake) bình", "Sục hơi (Steam)", "Ép chậm"], answer: "Lắc (Shake) bình" },
-    { question: "Chanh Vàng (Nóng) sử dụng bao nhiêu ml nước sôi?", options: ["100ml", "120ml", "150ml", "200ml"], answer: "150ml" },
-    
-    // Cold Brew
+    // Nhóm Cold Brew (chỉ cốc thủy tinh, viền muối cốc)
     { question: "Tất cả các món Cold Brew (trừ chai đóng sẵn) đều BẮT BUỘC phải làm thao tác gì với miệng cốc?", options: ["Viền đường", "Viền muối", "Hơ lửa", "Xịt viền chanh"], answer: "Viền muối" },
-    { question: "Cold Brew Dâu Tằm có được lắc (Shake) không?", options: ["Có, lắc mạnh", "Có, lắc nhẹ", "Chỉ quậy (không lắc)", "Xay nhuyễn"], answer: "Chỉ quậy (không lắc)" },
-    { question: "Cold Brew Me Đác sử dụng bao nhiêu ml Cold Brew?", options: ["80ml", "100ml", "120ml", "150ml"], answer: "100ml" },
-    { question: "Cold Brew Sấu Hà Nội dùng bao nhiêu quả sấu để pha chế?", options: ["2 quả", "3 quả", "4 quả", "5 quả"], answer: "3 quả" },
-    { question: "Cold Brew Cam cần rót thành phần nào trước để phân tầng?", options: ["Rót Cold Brew trước", "Rót cốt cam (đã lọc rây) trước", "Trộn chung rồi rót", "Rót cam lên trên cùng"], answer: "Rót cốt cam (đã lọc rây) trước" },
-    { question: "Cold Brew Cam dùng bao nhiêu ml nước cam ép?", options: ["80ml", "100ml", "120ml", "150ml"], answer: "100ml" },
-    { question: "Cold Brew Mơ sử dụng mứt mơ gồm bao nhiêu quả?", options: ["2 quả", "3 quả", "4 quả", "5 quả"], answer: "3 quả" },
-    { question: "Cold Brew Mơ có được lắc bằng bình Shake không?", options: ["Có, lắc đều", "Không, chỉ khuấy", "Đổ trực tiếp", "Xay với đá"], answer: "Có, lắc đều" },
-    { question: "Cold Brew Chanh Vàng sử dụng mứt chanh vàng bao nhiêu ml?", options: ["5ml", "10ml", "15ml", "20ml"], answer: "10ml" },
-    { question: "Cold Brew Nguyên Bản phục vụ như thế nào?", options: ["Viền muối, 100ml Cold Brew, 100g đá", "Viền đường, 120ml Cold Brew, 150g đá", "Không viền, 150ml Cold Brew, 100g đá", "Không viền, 100ml Cold Brew, không đá"], answer: "Viền muối, 100ml Cold Brew, 100g đá" },
-    { question: "Một chai Cold Brew bán sẵn chứa bao nhiêu ml?", options: ["200ml", "250ml", "300ml", "330ml"], answer: "250ml" },
-    
-    // Món Khác - Matcha
-    { question: "Bước đầu tiên để làm Matcha Sữa Hạt là gì?", options: ["Cho đá vào cốc", "Đánh tan matcha với nước sôi và sữa đặc", "Lắc matcha với sữa hạt", "Sục matcha cho nổi bọt"], answer: "Đánh tan matcha với nước sôi và sữa đặc" },
-    { question: "Lượng bột matcha trong 1 túi tiêu chuẩn của cửa hàng là bao nhiêu?", options: ["2g", "3g", "5g", "10g"], answer: "3g" },
-    { question: "Matcha Latte (Bản Nóng) sử dụng bao nhiêu sữa tươi để sục nóng?", options: ["150ml", "180ml", "200ml", "220ml"], answer: "180ml" },
-    { question: "Matcha Kem Muối có lớp kem muối dày bao nhiêu gram?", options: ["30g", "40g", "50g", "60g"], answer: "50g" },
-    { question: "Coco Matcha sử dụng topping gì đặt lên trên?", options: ["Kem hạt dẻ", "Kem mặn", "100g Kem dừa và dừa khô", "Bọt sữa tươi"], answer: "100g Kem dừa và dừa khô" },
-    
-    // Món Khác - Sữa Chua & Cacao
-    { question: "Kem Dừa phục vụ cho khách ra ly/cốc riêng có khối lượng là bao nhiêu?", options: ["150g", "200g", "250g", "300g"], answer: "250g" },
-    { question: "Sữa Chua Cafe rưới loại cà phê gì lên trên cùng?", options: ["20ml cafe đen", "20ml cafe nâu", "20ml cafe muối", "30ml Espresso"], answer: "20ml cafe muối" },
-    { question: "Sữa Chua Hoa Quả có lượng hoa quả tươi là bao nhiêu gram?", options: ["100g", "150g", "200g", "250g"], answer: "200g" },
-    { question: "Lượng sữa chua dẻo dùng trong Sữa Chua Dẻo Hoa Quả là bao nhiêu?", options: ["50g", "80g", "100g", "120g"], answer: "100g" },
-    { question: "Cacao (Bản Đá) sử dụng bao nhiêu ml sữa tươi?", options: ["50ml", "80ml", "100ml", "120ml"], answer: "100ml" },
-    { question: "Cacao (Bản Đá) sử dụng bao nhiêu gram đá viên?", options: ["100g", "120g", "150g", "180g"], answer: "180g" },
-    
-    // Phần Chuẩn Bị Nguyên Liệu (Prep)
-    { question: "Làm Kem Mặn sử dụng bao nhiêu gram Whipping Anchor?", options: ["200g", "300g", "400g", "500g"], answer: "400g" },
-    { question: "Làm Kem Mặn sử dụng bao nhiêu gram kem Base?", options: ["400g", "500g", "600g", "700g"], answer: "600g" },
-    { question: "Lượng muối dùng để đánh Kem Mặn là bao nhiêu?", options: ["5g", "7g", "10g", "12g"], answer: "7g" },
-    { question: "Kem Hạt Dẻ sử dụng bao nhiêu bột hạt dẻ?", options: ["50g", "80g", "100g", "120g"], answer: "100g" },
-    { question: "Thạch Hồng Đào cần ủ 1 túi Atiso với bao nhiêu lít nước sôi?", options: ["1L", "1.5L", "2L", "2.5L"], answer: "2L" },
-    { question: "Thời gian ủ Lục Trà tiêu chuẩn là bao nhiêu phút?", options: ["10 phút", "12 phút", "15 phút", "20 phút"], answer: "12 phút" },
-    { question: "Sau khi vớt bã Lục Trà, thao tác tiếp theo là gì?", options: ["Để nguội tự nhiên", "Bảo quản tủ lạnh ngay", "Sốc lạnh với đá viên để ép cốt đạt đúng 3L", "Pha đường vào luôn"], answer: "Sốc lạnh với đá viên để ép cốt đạt đúng 3L" },
-    { question: "Ủ Hồng Trà (1 túi Shan) thu về bao nhiêu ml cốt sau khi sốc đá?", options: ["500ml", "600ml", "700ml", "800ml"], answer: "700ml" },
-    { question: "Khi ủ Trà Sữa Gạo, cần dầm mạnh túi trà bao nhiêu lần trước khi vớt bã?", options: ["5 lần", "10 lần", "15 lần", "20 lần"], answer: "10 lần" },
-    { question: "Trộn Cốt Dừa theo tỷ lệ nào là đúng chuẩn?", options: ["1000ml cốt dừa hộp + 500ml đường nước", "500ml cốt dừa + 500ml đường nước", "1000ml cốt dừa + 250ml đường nước", "1000ml cốt dừa + 1000ml sữa tươi"], answer: "1000ml cốt dừa hộp + 500ml đường nước" },
-    { question: "Cốt Sả được làm bằng cách xay 200g sả với bao nhiêu nước sôi?", options: ["400ml", "500ml", "600ml", "800ml"], answer: "600ml" },
-    { question: "Thời gian xay sả làm Cốt Sả là bao lâu?", options: ["5 giây", "10 giây", "20 giây", "30 giây"], answer: "10 giây" },
-    { question: "Ủ Atiso làm Cốt Atiso cần bao nhiêu nước sôi?", options: ["200ml", "300ml", "400ml", "500ml"], answer: "400ml" },
-    { question: "Để cốt Atiso giữ được màu đỏ đẹp, cần sốc ngay với bao nhiêu đá viên?", options: ["400g", "500g", "600g", "800g"], answer: "600g" },
-    
-    // Bonus Logic
-    { question: "Tổng lượng hỗn hợp Trà Sữa Gạo thu được sau khi pha chế (gồm cả đá viên làm nguội) đạt mốc bao nhiêu?", options: ["2L", "3L", "4L", "5L"], answer: "4L" },
-    { question: "Nhiệt độ nước sôi tiêu chuẩn trong pha chế thường là bao nhiêu (để đánh matcha/cacao)?", options: ["70-80°C", "85-90°C", "Gần 100°C (nước sôi)", "Nước ấm 50°C"], answer: "Gần 100°C (nước sôi)" }
-];
+    { question: "Cold brew dâu tằm sử dụng lượng cold brew và dâu tằm là bao nhiêu?", options: ["100ml cold brew, 1 tép dâu tằm", "120ml cold brew, 2 tép dâu tằm", "100ml cold brew, 2 tép dâu tằm", "150ml cold brew, 1 tép dâu tằm"], answer: "100ml cold brew, 1 tép dâu tằm" },
+    { question: "Cold brew dâu tằm sử dụng lượng đường nước và đường hoa quả là bao nhiêu?", options: ["10ml đường nước, 5ml đường hoa quả", "20ml đường nước, 5ml đường hoa quả", "15ml đường nước, 10ml đường hoa quả", "20ml đường nước, 10ml đường hoa quả"], answer: "20ml đường nước, 5ml đường hoa quả" },
+    { question: "Thao tác pha chế của Cold brew dâu tằm là gì?", options: ["Lắc đều (shake)", "Chỉ quậy", "Xay với đá", "Sục hơi"], answer: "Chỉ quậy" },
+    { question: "Cold brew me đác sử dụng lượng mứt me đác là bao nhiêu?", options: ["20g", "30g", "40g", "50g"], answer: "30g" },
+    { question: "Cold brew me đác sử dụng lượng đường nước và đường hoa quả là bao nhiêu?", options: ["10ml đường, 5ml đường hoa quả", "20ml đường, 5ml đường hoa quả", "15ml đường, 5ml đường hoa quả", "10ml đường, 10ml đường hoa quả"], answer: "10ml đường, 5ml đường hoa quả" },
+    { question: "Cold brew sấu hà nội sử dụng lượng cốt sấu và quả sấu là bao nhiêu?", options: ["20ml cốt sấu, 2 quả sấu", "30ml cốt sấu, 2 quả sấu", "20ml cốt sấu, 3 quả sấu", "30ml cốt sấu, 3 quả sấu"], answer: "20ml cốt sấu, 2 quả sấu" },
+    { question: "Cold brew cam sử dụng lượng đường nước và đường hoa quả là bao nhiêu?", options: ["20ml đường, 5ml đường hoa quả", "10ml đường, 5ml đường hoa quả", "15ml đường, 10ml đường hoa quả", "25ml đường, 5ml đường hoa quả"], answer: "20ml đường, 5ml đường hoa quả" },
+    { question: "Cold brew cam sử dụng bao nhiêu ml cam ép và xử lý thế nào?", options: ["100ml cam, để nguyên tép", "100ml cam, lọc qua dây lọc", "120ml cam, lọc qua dây lọc", "80ml cam, để nguyên tép"], answer: "100ml cam, lọc qua dây lọc" },
+    { question: "Thao tác rót của Cold brew cam là gì?", options: ["Trộn đều rồi rót", "Rót phân tầng", "Lắc chung với đá rồi rót", "Rót cold brew xuống dưới cùng"], answer: "Rót phân tầng" },
+    { question: "Cold brew mơ sử dụng lượng mứt mơ là bao nhiêu?", options: ["20g (2 quả)", "30g (3 quả và nước mơ)", "40g (4 quả)", "30g (chỉ lấy nước)"], answer: "30g mứt mơ (gồm 3 quả và nước mơ)" },
+    { question: "Cold brew mơ sử dụng lượng đường nước và đường hoa quả là bao nhiêu?", options: ["10ml đường, 5ml đường hoa quả", "15ml đường, 5ml đường hoa quả", "20ml đường, 5ml đường hoa quả", "15ml đường, 10ml đường hoa quả"], answer: "15ml đường (nước), 5ml đường hoa quả" },
+    { question: "Cold brew chanh vàng sử dụng lượng mứt chanh vàng là bao nhiêu?", options: ["5ml", "10ml", "15ml", "20ml"], answer: "10ml" },
+    { question: "Cold brew nguyên bản sử dụng lượng cold brew và đá là bao nhiêu?", options: ["100ml cold brew, 100g đá", "120ml cold brew, 120g đá", "150ml cold brew, 100g đá", "100ml cold brew, 120g đá"], answer: "100ml cold brew, 100g đá (đầy cốc)" },
+    { question: "Chai Cold brew bán sẵn (chai thủy tinh cấp sẵn) chứa bao nhiêu ml?", options: ["200ml", "250ml", "300ml", "330ml"], answer: "250ml" },
 
+    // Nhóm Sen Huế
+    { question: "Sen huế size M sử dụng lượng nước dừa và nước cốt sen là bao nhiêu?", options: ["150ml nước dừa, 40ml nước cốt sen", "200ml nước dừa, 60ml nước cốt sen", "150ml nước dừa, 50ml nước cốt sen", "120ml nước dừa, 40ml nước cốt sen"], answer: "150ml nước dừa, 40ml nước cốt sen" },
+    { question: "Topping của Sen huế size M gồm những gì?", options: ["50g hạt sen, 5g dừa sợi, cánh sen, 4 quả nhãn", "50g hạt sen, 10g dừa sợi, cánh sen, 5 quả nhãn", "40g hạt sen, 5g dừa sợi, 4 quả nhãn", "50g hạt sen, thạch dừa, cánh sen, 4 quả nhãn"], answer: "50g hạt sen, 5g dừa sợi, cánh sen, 4 quả nhãn" },
+    { question: "Sen huế size L sử dụng lượng nước dừa và nước cốt sen là bao nhiêu?", options: ["150ml nước dừa, 40ml nước cốt sen", "200ml nước dừa, 60ml nước cốt sen", "250ml nước dừa, 70ml nước cốt sen", "200ml nước dừa, 50ml nước cốt sen"], answer: "200ml nước dừa, 60ml nước cốt sen" },
+    { question: "Topping của Sen huế size L gồm những gì?", options: ["50g hạt sen, 5g dừa sợi, cánh sen, 5 quả nhãn", "60g hạt sen, 5g dừa sợi, cánh sen, 4 quả nhãn", "50g hạt sen, 10g dừa sợi, cánh sen, 6 quả nhãn", "50g hạt sen, 5g dừa sợi, cánh sen, 4 quả nhãn"], answer: "50g hạt sen, 5g dừa sợi, cánh sen, 5 quả nhãn" },
+
+    // Nhóm Bơ
+    { question: "Hỗn hợp để dưới đáy cốc của món Bơ dừa non gồm những gì?", options: ["35ml cốt dừa, 15ml đường, 10ml whiping, đá vụn 20g", "30ml cốt dừa, 10ml đường, 15ml whiping, đá vụn 20g", "40ml cốt dừa, 15ml đường, 10ml whiping, đá vụn 30g", "35ml cốt dừa, 20ml đường, 10ml whiping, đá vụn 20g"], answer: "35ml cốt dừa, 15ml đường, 10ml whiping, đá vụn 20g" },
+    { question: "Nguyên liệu cho vào cối xay của Bơ dừa non là gì?", options: ["1 túi bơ, 50ml nước lọc, 30ml sữa tươi, 20g sữa đặc, 10ml siro lá nếp", "1 túi bơ, 30ml nước lọc, 50ml sữa tươi, 20g sữa đặc, 10ml siro lá nếp", "1 túi bơ, 50ml nước lọc, 30ml sữa tươi, 30g sữa đặc, 5ml siro lá nếp", "1 túi bơ, 50ml nước lọc, 40ml sữa tươi, 20g sữa đặc, 10ml siro lá nếp"], answer: "Bơ 1 túi, 50ml nước lọc, 30ml sữa tươi, 20g sữa đặc, 10ml siro lá nếp" },
+    { question: "Decor của món Bơ dừa non là gì?", options: ["Vụn điều 3g", "Dừa khô 5g", "Hạt dẻ cười", "Dừa tươi nạo sợi"], answer: "Vụn điều 3g" },
+    { question: "Nguyên liệu cho vào cối xay của món Kem bơ là gì?", options: ["1 túi bơ, 30g đá viên, 50ml nước lọc, 30ml sữa tươi, 20ml sữa đặc, 10ml siro lá nếp", "1 túi bơ, 50g đá viên, 50ml nước lọc, 30ml sữa tươi, 20ml sữa đặc, 10ml siro lá nếp", "1 túi bơ, 30g đá viên, 30ml nước lọc, 50ml sữa tươi, 20ml sữa đặc, 10ml siro lá nếp", "1 túi bơ, 30g đá viên, 50ml nước lọc, 30ml sữa tươi, 30ml sữa đặc, 10ml siro lá nếp"], answer: "1 túi bơ, 30g đá viên, 50ml nước lọc, 30ml sữa tươi, 20ml sữa đặc, 10ml siro lá nếp" },
+    { question: "Topping và decor của món Kem bơ là gì?", options: ["80g kem dừa (1 viên), dừa khô 5g", "100g kem dừa (2 viên), dừa khô 5g", "50g kem dừa (1 viên), vụn điều 3g", "80g kem dừa (1 viên), vụn điều 5g"], answer: "80g kem dừa (1 viên), dừa khô 5g" },
+    { question: "Sinh tố bơ có nguyên liệu xay giống Kem bơ nhưng được thêm thành phần gì vào thẳng cối xay?", options: ["35ml cốt dừa, 15ml đường", "30ml cốt dừa, 10ml đường", "20ml whipping", "40ml sữa đặc"], answer: "35ml cốt dừa, 15ml đường" },
+    { question: "Đá viên dùng trong cối xay của Sinh tố bơ là bao nhiêu gram?", options: ["20g", "30g", "40g", "50g"], answer: "30g" },
+    { question: "Decor của món Sinh tố bơ là gì?", options: ["Vụn điều 3g", "Dừa khô 5g", "Lá bạc hà", "Dừa sấy khô"], answer: "Vụn điều 3g" },
+
+    // Nhóm Trà Trái Cây
+    { question: "Lục trà xoài sử dụng lượng nền lục trà và nước lọc là bao nhiêu?", options: ["100ml lục trà, 50ml nước lọc", "120ml lục trà, 30ml nước lọc", "150ml lục trà, không nước lọc", "80ml lục trà, 50ml nước lọc"], answer: "100ml lục trà, 50ml nước lọc" },
+    { question: "Lục trà xoài sử dụng lượng mứt xoài là bao nhiêu?", options: ["20ml", "30ml", "40ml", "50ml"], answer: "30ml" },
+    { question: "Lục trà xoài sử dụng lượng đường nước và đường hoa quả là bao nhiêu?", options: ["10ml đường, 5ml đường hoa quả", "15ml đường, 5ml đường hoa quả", "10ml đường, 10ml đường hoa quả", "20ml đường, 5ml đường hoa quả"], answer: "10ml đường, 5ml đường hoa quả" },
+    { question: "Trà đào sấu sử dụng lượng nước cốt sấu và mứt đào là bao nhiêu?", options: ["30ml cốt sấu, 20g mứt đào", "20ml cốt sấu, 30g mứt đào", "30ml cốt sấu, 30g mứt đào", "40ml cốt sấu, 20g mứt đào"], answer: "30ml cốt sấu, 20g mứt đào" },
+    { question: "Trà đào sấu sử dụng bao nhiêu quả sấu?", options: ["1 quả", "2 quả", "3 quả", "4 quả"], answer: "2 quả sấu" },
+    { question: "Trong Trà đào sấu, Atiso được xử lý như thế nào?", options: ["Lắc chung với trà", "Rót 30ml atiso lên trên cùng", "Trộn chung dưới đáy cốc", "Không sử dụng Atiso"], answer: "30ml atiso rót lên trên" },
+    { question: "Lục trà me đác sử dụng lượng mứt me đác là bao nhiêu?", options: ["20ml", "30ml", "40ml", "50ml"], answer: "30ml" },
+    { question: "Lục trà me đác sử dụng loại thạch gì và lượng bao nhiêu?", options: ["70g thạch hồng đào", "50g thạch dừa", "70g thạch atiso", "70g thạch trà"], answer: "70g thạch hồng đào" },
+    { question: "Mơ trà sử dụng lượng mơ là bao nhiêu?", options: ["20g (2 quả)", "30g (3 quả)", "40g (4 quả)", "50g (5 quả)"], answer: "30g (3 quả)" },
+    { question: "Mơ trà sử dụng loại thạch gì?", options: ["70g thạch atiso", "70g thạch hồng đào", "70g thạch trà", "50g thạch dừa"], answer: "70g thạch hồng đào" },
+    { question: "Mơ trà sử dụng cốt atiso như thế nào?", options: ["Khuấy đều cùng trà", "30ml cốt atiso rót lên trên", "Không sử dụng Atiso", "20ml cốt atiso rót dưới đáy"], answer: "30ml cốt atiso (rót lên trên)" },
+    { question: "Trà đào cam sả sử dụng lượng hồng trà và nước sôi là bao nhiêu?", options: ["20ml hồng trà, 70ml nước sôi", "30ml hồng trà, 70ml nước sôi", "20ml hồng trà, 100ml nước sôi", "50ml hồng trà, 50ml nước sôi"], answer: "20ml hồng trà, 70ml nước sôi" },
+    { question: "Trà đào cam sả sử dụng lượng cốt sả và mứt đào là bao nhiêu?", options: ["30ml cốt sả, 25g mứt đào", "20ml cốt sả, 30g mứt đào", "30ml cốt sả, 20g mứt đào", "40ml cốt sả, 25g mứt đào"], answer: "30ml cốt sả, 25g mứt đào" },
+    { question: "Trà đào cam sả sử dụng lượng siro cam đỏ là bao nhiêu?", options: ["3ml", "5ml", "10ml", "15ml"], answer: "3ml" },
+    { question: "Topping trang trí của Trà đào cam sả gồm những gì?", options: ["50g đào (2 miếng), 1 lát cam vàng (30g)", "30g đào (1 miếng), 2 lát cam vàng", "Thạch hồng đào, 1 lát cam vàng", "Đào miếng và lá bạc hà"], answer: "50g đào (2 miếng), 1 lát cam vàng (30g)" },
+    { question: "Xoài lài chanh leo sử dụng lượng mứt xoài và chanh leo tươi là bao nhiêu?", options: ["20g mứt xoài, 1 túi chanh leo", "30g mứt xoài, 1 túi chanh leo", "20g mứt xoài, nửa túi chanh leo", "30g mứt xoài, nửa túi chanh leo"], answer: "20g mứt xoài, 1 túi chanh leo" },
+    { question: "Xoài lài chanh leo sử dụng loại thạch gì?", options: ["70g thạch hồng đào", "70g thạch trà", "50g thạch dừa", "50g pudding xoài"], answer: "70 thạch trà" },
+
+    // Nhóm Trà Sữa Size L
+    { question: "Lục trà sữa (size L) sử dụng lượng lục trà là bao nhiêu?", options: ["120ml", "150ml", "180ml", "200ml"], answer: "150ml" },
+    { question: "Lục trà sữa (size L) sử dụng lượng sữa nước, sữa đặc, sữa tươi là bao nhiêu?", options: ["30ml sữa nước, 30ml sữa đặc, 50ml sữa tươi", "20ml sữa nước, 30ml sữa đặc, 50ml sữa tươi", "30ml sữa nước, 20ml sữa đặc, 50ml sữa tươi", "30ml sữa nước, 30ml sữa đặc, 30ml sữa tươi"], answer: "30ml sữa nước, 30ml sữa đặc, 50ml sữa tươi" },
+    { question: "Lục xoài sữa (size L) sử dụng lượng mứt xoài là bao nhiêu?", options: ["20g", "30g", "40g", "50g"], answer: "30g" },
+    { question: "Topping của Lục xoài sữa (size L) gồm những gì?", options: ["Puding xoài 50g, 50g thạch dừa", "Puding xoài 70g", "Thạch hồng đào 50g, thạch dừa 50g", "Puding xoài 50g, thạch atiso 50g"], answer: "Puding xoài 50g, 50g thạch dừa" },
+    { question: "Trà sữa đào hồng (size L) sử dụng lượng hồng trà là bao nhiêu?", options: ["70ml", "100ml", "120ml", "150ml"], answer: "70ml" },
+    { question: "Trà sữa đào hồng (size L) sử dụng lượng mứt đào hồng là bao nhiêu?", options: ["15g", "20g", "25g", "30g"], answer: "20g" },
+    { question: "Nếp hạt dẻ (size L) sử dụng nền trà gì và lượng bao nhiêu?", options: ["150ml lục trà", "150ml hồng trà", "150ml trà gạo", "120ml lục trà"], answer: "150ml lục trà" },
+    { question: "Nếp hạt dẻ (size L) sử dụng lượng lá nếp là bao nhiêu?", options: ["10ml", "15ml", "20ml", "25ml"], answer: "15ml" },
+    { question: "Nếp hạt dẻ (size L) sử dụng lượng kem hạt dẻ là bao nhiêu?", options: ["30g", "40g", "50g", "60g"], answer: "40g" },
+    { question: "Hồng trà hạt dẻ (size L) sử dụng lượng hồng trà là bao nhiêu?", options: ["70ml", "100ml", "120ml", "150ml"], answer: "70ml" },
+    { question: "Topping của Hồng trà hạt dẻ (size L) gồm những gì?", options: ["40g kem hạt dẻ, 50g thạch dừa", "50g kem hạt dẻ, 50g thạch dừa", "40g kem hạt dẻ, thạch hồng đào", "Chỉ có 40g kem hạt dẻ"], answer: "40g kem hạt dẻ, 50g thạch dừa" },
+    { question: "Trà sữa gạo (size L) sử dụng lượng cốt trà sữa gạo chuẩn bị sẵn là bao nhiêu?", options: ["200ml", "250ml", "300ml", "350ml"], answer: "250ml" },
+    { question: "Trà sữa gạo (size L) sử dụng loại topping nào?", options: ["50g thạch dừa", "50g thạch hồng đào", "70g thạch phô mai", "50g pudding"], answer: "50g thạch dừa" },
+    { question: "Trà sữa gạo hạt dẻ (size L) sử dụng lượng cốt trà sữa gạo chuẩn bị sẵn là bao nhiêu?", options: ["150ml", "200ml", "250ml", "300ml"], answer: "200ml" },
+    { question: "Topping của Trà sữa gạo hạt dẻ (size L) gồm những gì?", options: ["50g thạch dừa, 40g kem hạt dẻ", "50g thạch dừa, 30g kem hạt dẻ", "70g thạch phô mai, 40g kem hạt dẻ", "Chỉ 40g kem hạt dẻ"], answer: "50g thạch dừa, 40g kem hạt dẻ" },
+    { question: "Trà sữa gạo pudding phomai (size L) sử dụng lượng cốt trà sữa gạo chuẩn bị sẵn là bao nhiêu?", options: ["150ml", "200ml", "250ml", "300ml"], answer: "200ml" },
+    { question: "Lượng thạch phô mai dùng cho Trà sữa gạo pudding phomai là bao nhiêu?", options: ["50g", "60g", "70g", "80g"], answer: "70g" },
+
+    // Nhóm Nước Trái Cây
+    { question: "Nước dâu tằm sử dụng bao nhiêu tép dâu tằm?", options: ["1 tép (30ml)", "2 tép (60ml)", "3 tép (90ml)", "4 tép (120ml)"], answer: "2 tép dâu tằm (60ml)" },
+    { question: "Nước dâu tằm được mix thêm mứt gì?", options: ["20g mứt đào", "20g mứt xoài", "15g mứt dâu tây", "Không mix thêm mứt"], answer: "20g mứt đào" },
+    { question: "Nước dưa hấu cần dùng bao nhiêu gram dưa hấu quả để ép?", options: ["300g", "400g", "500g", "600g"], answer: "400g" },
+    { question: "Nước dưa hấu sử dụng lượng đường là bao nhiêu?", options: ["5ml", "10ml", "15ml", "20ml"], answer: "10ml" },
+    { question: "Nước cam tươi cần dùng bao nhiêu gram cam quả để vắt?", options: ["300g", "400g", "500g", "600g"], answer: "500g" },
+    { question: "Nước cam tươi sử dụng lượng đường là bao nhiêu?", options: ["10ml", "15ml", "20ml", "25ml"], answer: "15ml" },
+    { question: "Chanh leo xoài sử dụng lượng chanh leo và mứt xoài là bao nhiêu?", options: ["1 túi chanh leo (30ml), 30ml mứt xoài", "1 túi chanh leo, 20ml mứt xoài", "2 túi chanh leo, 30ml mứt xoài", "1 túi chanh leo, 40ml mứt xoài"], answer: "1 túi chanh leo (30ml), 30ml mứt xoài" },
+    { question: "Chanh vàng violet (đá) sử dụng lượng chanh là bao nhiêu?", options: ["1 túi chanh (30g)", "2 túi chanh", "3 lát chanh vàng tươi", "20ml nước cốt chanh"], answer: "1 túi chanh (30g)" },
+    { question: "Chanh vàng violet (đá) rót thành phần gì lên trên cùng?", options: ["30ml cốt atiso", "30ml cốt hoa đậu biếc", "20ml siro violet", "10ml siro hoa hồng"], answer: "30ml cốt hoa đậu biếc" },
+    { question: "Chanh vàng (nóng) sử dụng lượng nước sôi là bao nhiêu?", options: ["100ml", "120ml", "150ml", "200ml"], answer: "150ml" },
+    { question: "Chanh vàng (nóng) dùng kỹ thuật pha chế nào?", options: ["Khuấy đều", "Shake (lắc) lên", "Sục hơi (steam)", "Đổ nước sôi trực tiếp vào cốc"], answer: "Shake lên" },
+
+    // Nhóm Đồ Nóng & Khác
+    { question: "Sữa gừng táo đỏ sử dụng lượng sữa tươi là bao nhiêu?", options: ["150ml", "180ml", "200ml", "250ml"], answer: "200ml" },
+    { question: "Sữa gừng táo đỏ sử dụng loại sốt nào và định lượng bao nhiêu?", options: ["10ml sốt nướng, 10ml sốt táo đỏ", "20ml sốt táo đỏ", "15ml sốt nướng, 5ml sốt táo đỏ", "10ml sốt caramel, 10ml sốt táo đỏ"], answer: "10ml sốt nướng, 10ml sốt táo đỏ" },
+    { question: "Decor của Sữa gừng táo đỏ gồm những gì?", options: ["2g hoa hồng, 2 lát gừng, 2 quả táo đỏ", "1g hoa hồng, 1 lát gừng, 3 quả táo đỏ", "Bột quế, 2 lát gừng", "3 lát gừng, 2 quả táo đỏ"], answer: "2g hoa hồng, 2 lát gừng, 2 quả táo đỏ" },
+    { question: "Lài sữa hạt dẻ nóng sử dụng nền trà gì và lượng bao nhiêu?", options: ["150ml lục trà", "150ml hồng trà", "150ml sữa tươi", "120ml lục trà"], answer: "150ml lục trà" },
+    { question: "Lài sữa hạt dẻ nóng sử dụng lượng bột hạt dẻ là bao nhiêu?", options: ["10g", "15g", "20g", "25g"], answer: "20g bột hạt dẻ" },
+    { question: "Matcha sữa hạt sử dụng lượng sữa hạt là bao nhiêu?", options: ["30ml", "40ml", "50ml", "60ml"], answer: "50ml" },
+    { question: "Matcha latte (đá) sử dụng lượng bột matcha là bao nhiêu?", options: ["2g", "1 túi matcha (3g)", "5g", "10g"], answer: "1 túi matcha (3g)" },
+    { question: "Matcha latte (nóng) sử dụng lượng sữa tươi sục nóng là bao nhiêu?", options: ["150ml", "180ml", "200ml", "220ml"], answer: "180ml sữa tươi sục nóng vẽ hình" },
+    { question: "Matcha kem muối sử dụng lượng sữa hạt và kem muối là bao nhiêu?", options: ["50ml sữa hạt, 40g kem muối", "30ml sữa hạt, 50g kem muối", "30ml sữa hạt, 40g kem muối", "50ml sữa hạt, 50g kem muối"], answer: "30ml sữa hạt, 50g kem muối" },
+    { question: "Coco matcha sử dụng loại topping gì và lượng bao nhiêu?", options: ["100g kem dừa + dừa khô", "50g kem dừa + vụn điều", "80g kem dừa + dừa khô", "120g kem dừa + dừa sấy"], answer: "100g kem dừa + dừa khô" },
+    { question: "Kem dừa (phục vụ ra cốc riêng) có khối lượng là bao nhiêu?", options: ["150g", "200g", "250g", "300g"], answer: "250g kem dừa" },
+    { question: "Sữa chua cafe sử dụng lượng cà phê muối rưới lên trên là bao nhiêu?", options: ["10ml", "20ml", "30ml", "40ml"], answer: "20ml cà phê muối" },
+    { question: "Sữa chua dẻo hoa quả sử dụng bao nhiêu gram sữa chua dẻo?", options: ["50g", "80g", "100g", "120g"], answer: "100g" },
+    { question: "Cacao (đá) sử dụng lượng sữa đặc và nước sôi như thế nào?", options: ["30g sữa đặc đánh tan với 50ml nước sôi", "40g sữa đặc đánh tan với 50ml nước sôi", "40g sữa đặc đánh tan với 30ml nước sôi", "50g sữa đặc đánh tan với 50ml nước sôi"], answer: "40g sữa đặc đánh tan với 50ml nước sôi" },
+    { question: "Cacao (nóng) sử dụng lượng bột cacao là bao nhiêu?", options: ["5g", "10g", "15g", "20g"], answer: "10g cacao" },
+    { question: "Cacao (nóng) sử dụng lượng sữa tươi sục nóng là bao nhiêu?", options: ["150ml", "180ml", "200ml", "220ml"], answer: "180ml sữa tươi sục nóng vẽ hình" },
+
+    // Nhóm Chuẩn bị nguyên liệu (Prep)
+    { question: "Công thức làm Kem Mặn chuẩn sử dụng tỷ lệ Whipping Anchor và Base là bao nhiêu?", options: ["300g Whip + 500g Base", "400g Whip + 600g Base", "500g Whip + 500g Base", "400g Whip + 500g Base"], answer: "400g Whipping anchor + 600g base" },
+    { question: "Làm Kem Mặn sử dụng lượng đường nước và muối hồng là bao nhiêu?", options: ["50ml đường nước, 5g muối", "60ml đường nước, 7g muối", "60ml đường nước, 10g muối", "80ml đường nước, 7g muối"], answer: "60ml đường nước, 7g muối" },
+    { question: "Công thức làm Kem Hạt Dẻ Cười sử dụng tỷ lệ sữa tươi, base, whipping là bao nhiêu?", options: ["100ml sữa tươi, 100ml base, 100ml whipping", "150ml sữa tươi, 100ml base, 100ml whipping", "100ml sữa tươi, 150ml base, 100ml whipping", "100ml sữa tươi, 100ml base, 150ml whipping"], answer: "100ml sữa tươi, 100ml base, 100ml whipping" },
+    { question: "Công thức làm Kem Hạt Dẻ Cười sử dụng lượng bột hạt dẻ cười là bao nhiêu?", options: ["50g", "80g", "100g", "150g"], answer: "100g" },
+    { question: "Để làm Thạch Hồng Đào, 1 túi Atiso cần ủ với bao nhiêu lít nước sôi?", options: ["1.5 lít (1500ml)", "2 lít (2000ml)", "2.5 lít (2500ml)", "3 lít (3000ml)"], answer: "2 lít (2000ml)" },
+    { question: "Thời gian ủ Atiso làm Thạch Hồng Đào là bao lâu?", options: ["5 phút", "10 phút", "12 phút", "15 phút"], answer: "10 phút" },
+    { question: "Quy trình ủ Trà Sữa Gạo sử dụng 1 túi trà gạo ủ với bao nhiêu ml nước sôi?", options: ["2000ml", "2500ml", "3000ml", "3500ml"], answer: "2500ml" },
+    { question: "Thời gian ủ Trà Sữa Gạo là bao lâu và thao tác đặc biệt trước khi vớt bã là gì?", options: ["Ủ 15 phút, vớt nhẹ", "Ủ 18 phút, dầm mạnh 10 lần rồi vớt", "Ủ 12 phút, không tác động", "Ủ 20 phút, vớt nhanh"], answer: "Ủ 18 phút, dầm mạnh 10 lần rồi vớt bã trà" },
+    { question: "Trà sữa gạo sau khi pha bột sữa, sốt nướng, đường và đá sẽ có tổng lượng thành phẩm là bao nhiêu?", options: ["3000ml", "3500ml", "4000ml", "4500ml"], answer: "4000ml" },
+    { question: "Quy trình ủ Lục Trà chuẩn là gì?", options: ["1 tép lục trà + 2000ml nước sôi, ủ 12p vớt nhẹ (không tác động)", "1 tép lục trà + 1500ml nước sôi, ủ 10p", "1 tép lục trà + 2500ml nước sôi, ủ 15p dầm mạnh", "1 tép lục trà + 2000ml nước sôi, ủ 12p dầm mạnh"], answer: "1 tép lục trà + 2000ml nước sôi, ủ 12p vớt nhẹ (không tác động)" },
+    { question: "Cách làm cốt dừa chuẩn tỷ lệ bao nhiêu?", options: ["1 hộp cốt dừa 1000ml + 500ml đường nước", "1 hộp cốt dừa 1000ml + 300ml đường nước", "500ml cốt dừa + 500ml đường nước", "1000ml cốt dừa + 1000ml sữa tươi"], answer: "1 hộp cốt dừa 1000ml + 500ml đường nước" },
+    { question: "Cách làm cốt sả chuẩn tỷ lệ và thời gian xay là bao nhiêu?", options: ["100g sả + 500ml nước sôi xay 10s", "200g sả + 600ml nước sôi xay 10s", "200g sả + 500ml nước sôi xay 20s", "300g sả + 600ml nước sôi xay 15s"], answer: "200g sả + 600ml nước sôi xay 10s rồi lọc" }
+];
