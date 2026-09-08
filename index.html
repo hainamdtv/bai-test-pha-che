@@ -8,11 +8,24 @@
 </head>
 <body>
     <div class="glass-container">
-        <!-- 1. Màn hình Chào mừng -->
-        <div id="welcome-screen" class="screen active">
+        <!-- 0. Màn hình Chọn Khu Vực -->
+        <div id="region-screen" class="screen active">
             <div class="logo-area">
                 <img src="logo.png" alt="Phố Núi Logo" class="main-logo">
-                <h1>HỆ THỐNG KIỂM TRA PHA CHẾ</h1>
+                <h1>CHỌN KHU VỰC THI</h1>
+            </div>
+            <p class="subtitle">Vui lòng chọn khu vực bạn đang làm việc</p>
+            <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+                <button type="button" class="btn-primary" onclick="selectRegion('Hà Nội')">Khu Vực Hà Nội</button>
+                <button type="button" class="btn-primary" onclick="selectRegion('Hà Nam')" style="background: linear-gradient(135deg, #a67c52 0%, #8b5a2b 100%);">Khu Vực Hà Nam</button>
+            </div>
+        </div>
+
+        <!-- 1. Màn hình Chào mừng -->
+        <div id="welcome-screen" class="screen hidden">
+            <div class="logo-area">
+                <img src="logo.png" alt="Phố Núi Logo" class="main-logo">
+                <h1 id="welcome-title">HỆ THỐNG KIỂM TRA PHA CHẾ</h1>
             </div>
             <p class="subtitle">Vui lòng nhập thông tin để bắt đầu làm bài</p>
             
@@ -36,9 +49,9 @@
                 <div class="rules">
                     <p><strong>📝 Quy chế thi:</strong></p>
                     <ul>
-                        <li>Thời gian tối đa mỗi câu: <strong>10 giây</strong>.</li>
+                        <li>Thời gian tối đa mỗi câu: <strong>15 giây</strong>.</li>
                         <li>Tổng số câu hỏi: <strong>45 câu</strong>.</li>
-                        <li>Quá 10 giây không trả lời, hệ thống tự động bỏ qua.</li>
+                        <li>Quá 15 giây không trả lời, hệ thống tự động bỏ qua.</li>
                     </ul>
                 </div>
                 <button type="submit" class="btn-primary" id="btn-start">BẮT ĐẦU BÀI TEST</button>
@@ -79,18 +92,25 @@
                 <img src="logo.png" alt="Phố Núi Logo" class="main-logo">
                 <h1>HOÀN THÀNH BÀI TEST</h1>
             </div>
-            <div class="result-message">
-                <p>Cảm ơn bạn <strong id="result-name"></strong> đã hoàn thành bài kiểm tra.</p>
-                <p>Hệ thống đã tự động ghi nhận kết quả và nộp cho Quản lý.</p>
-                <p class="hidden-score-note">*(Điểm số được ẩn để đảm bảo tính công bằng)*</p>
+            <div class="result-message" style="text-align: center;">
+                <p>Cảm ơn <strong id="result-name"></strong> đã hoàn thành bài thi.</p>
+                <div style="margin: 30px 0;">
+                    <h2 id="final-score-display" style="color: #ffb74d; font-size: 56px; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); font-weight: 900; background: rgba(0,0,0,0.5); padding: 20px 40px; border-radius: 15px; border: 3px solid #ffb74d; display: inline-block; box-shadow: 0 5px 20px rgba(255, 183, 77, 0.4); margin: 0;"></h2>
+                </div>
+                <p>Kết quả chi tiết đã được gửi về Ban Quản Trị.</p>
             </div>
-            <button id="btn-restart" class="btn-secondary">Quay lại trang chủ</button>
+            
+            <h3 style="margin-top: 20px; border-bottom: 2px solid var(--coffee-light); padding-bottom: 10px;">XEM LẠI BÀI LÀM</h3>
+            <div id="review-container" class="review-container">
+                <!-- Nội dung review sẽ được render bằng JS -->
+            </div>
+            <button id="btn-restart" class="btn-secondary">Quay về trang chủ</button>
         </div>
     </div>
 
     <!-- Nạp dữ liệu và logic -->
-    <script src="data1.js"></script>
-    <script src="data2.js"></script>
+    <script src="data_hanoi.js"></script>
+    <script src="data_hanam.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
