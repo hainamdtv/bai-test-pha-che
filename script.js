@@ -152,7 +152,19 @@ function nextQuestion() {
 
 function startTimer() {
     clearInterval(timerInterval);
-    timeLeft = TIME_PER_QUESTION;
+    
+    // Tính toán thời gian động dựa trên độ dài câu hỏi và đáp án
+    const q = testQuestions[currentQuestionIndex];
+    const totalLength = q.question.length + q.options.join("").length;
+    
+    if (totalLength > 150) {
+        timeLeft = 25; // Câu rất dài -> 25s
+    } else if (totalLength > 80) {
+        timeLeft = 20; // Câu vừa -> 20s
+    } else {
+        timeLeft = TIME_PER_QUESTION; // Câu ngắn -> mặc định 15s
+    }
+    
     timeDisplay.innerText = timeLeft;
     timeDisplay.parentElement.classList.remove('danger');
     
