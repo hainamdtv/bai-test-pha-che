@@ -1,7 +1,7 @@
-﻿const hanamBank = [
+const hanamBank = [
     // Nâu Phố Núi Bản Đá
     { question: "Món Nâu Phố Núi (Bản Đá) sử dụng loại cốc nào để phục vụ?", options: ["Cốc thủy tinh", "Cốc sứ", "Ly nhựa", "Cốc giấy"], answer: "Cốc thủy tinh" },
-    { question: "Lượng sữa đặc cho vào đáy cốc khi pha Nâu Phố Núi (Bản Đá) là bao nhiêu?", options: ["15g", "20g", "25g", "30g"], answer: "20g" },
+    { question: "Lượng sữa đặc cho vào đáy cốc khi pha Nâu Phố Núi (Bản Đá) là bao nhiêu?", options: ["15g", "20g", "25g", "30g"], answer: "25g" },
     { question: "Lượng đá viên chuẩn cho món Nâu Phố Núi (Bản Đá) là?", options: ["80g", "100g", "120g", "150g"], answer: "100g" },
     { question: "Để chiết xuất cốt cafe cho Nâu Phố Núi, cần sử dụng bao nhiêu gram bột cafe nâu?", options: ["13g", "15g", "18g", "20g"], answer: "18g" },
     { question: "Chiết xuất cafe cho Nâu Phố Núi (Bản Đá) cần bấm nút số mấy và thời gian bao lâu?", options: ["Nút 2 (33-36s)", "Nút 3 (36-40s)", "Nút 4 (55-65s)", "Nút 1 (20-25s)"], answer: "Nút 2 (33-36s)" },
@@ -33,7 +33,7 @@
     { question: "Bạc Xỉu Sữa Hạt (Bản Đá) sử dụng lượng sữa đặc và sữa hạt lần lượt là?", options: ["20ml sữa đặc + 50ml sữa hạt", "30ml sữa đặc + 50ml sữa hạt", "30ml sữa đặc + 40ml sữa hạt", "20ml sữa đặc + 60ml sữa hạt"], answer: "30ml sữa đặc + 50ml sữa hạt" },
     { question: "Bạc Xỉu Sữa Hạt chiết xuất từ loại bột cafe nào?", options: ["Cafe nâu (18g)", "Cafe đen (18g)", "Cafe Ý (13g)", "Cafe Ý (18g)"], answer: "Cafe Ý (13g)" },
     { question: "Cốt cafe cho Bạc Xỉu Sữa Hạt lấy ở Nút số mấy?", options: ["Nút 1", "Nút 2", "Nút 3", "Nút 4"], answer: "Nút 2" },
-    { question: "Bạc Xỉu Sữa Hạt (Bản Nóng) sử dụng lượng sữa hạt sục nóng là?", options: ["150ml", "180ml", "200ml", "250ml"], answer: "180ml" },
+    { question: "Bạc Xỉu Sữa Hạt (Bản Nóng) sử dụng lượng sữa hạt sục nóng là?", options: ["150ml", "180ml", "200ml", "250ml"], answer: "150ml" },
     
     // Cà Phê Muối
     { question: "Cà Phê Muối có được phục vụ dưới dạng Nóng không?", options: ["Có, luôn làm nóng", "Chỉ làm đá", "Tùy yêu cầu khách", "Chỉ phục vụ mang đi"], answer: "Chỉ làm đá" },
@@ -175,7 +175,7 @@
     // Trà Trái Cây - Trà Đào Cam Sả
     { question: "Trà Đào Cam Sả sử dụng loại trà nào?", options: ["Lục trà", "Hồng trà", "Trà ô long", "Trà nhài"], answer: "Hồng trà" },
     { question: "Lượng Hồng trà dùng trong Trà Đào Cam Sả là rất ít, cụ thể là bao nhiêu?", options: ["10ml", "20ml", "30ml", "40ml"], answer: "20ml" },
-    { question: "Trà Đào Cam Sả dùng bao nhiêu nước sôi để pha cốt?", options: ["50ml", "70ml", "100ml", "120ml"], answer: "70ml" },
+    { question: "Trà Đào Cam Sả dùng bao nhiêu nước sôi để pha cốt?", options: ["50ml", "80ml", "100ml", "120ml"], answer: "80ml" },
     { question: "Lượng cốt sả trong món Trà Đào Cam Sả là bao nhiêu?", options: ["20ml", "25ml", "30ml", "40ml"], answer: "30ml" },
     { question: "Siro cam đỏ dùng trong Trà Đào Cam Sả là bao nhiêu ml?", options: ["3ml", "5ml", "10ml", "15ml"], answer: "3ml" },
     { question: "Trang trí Trà Đào Cam Sả bằng gì?", options: ["50g đào (2 miếng) và 1 lát cam vàng (30g)", "30g đào và 2 lát cam vàng", "Thạch đào và 1 lát cam vàng", "Đào tươi, cam vàng và lá bạc hà"], answer: "50g đào (2 miếng) và 1 lát cam vàng (30g)" },
@@ -187,7 +187,7 @@
     
     // Nước Trái Cây - Dâu Tằm
     { question: "Món Dâu Tằm sử dụng bao nhiêu tép dâu?", options: ["1 tép (30ml)", "2 tép (60ml)", "3 tép (90ml)", "4 tép (120ml)"], answer: "2 tép (60ml)" },
-    { question: "Món Dâu Tằm được mix thêm mứt gì để tăng hương vị?", options: ["Mứt xoài", "Mứt đào (20g)", "Mứt dâu tây", "Không mix thêm mứt"], answer: "Mứt đào (20g)" },
+    { question: "Món Dâu Tằm được mix thêm mứt gì để tăng hương vị?", options: ["Mứt xoài", "Mứt đào (10g)", "Mứt dâu tây", "Không mix thêm mứt"], answer: "Mứt đào (10g)" },
     { question: "Trang trí món Dâu Tằm bằng trái cây gì?", options: ["Dâu tây tươi", "Dâu tằm tươi", "Cam vàng (30g)", "Chanh vàng"], answer: "Cam vàng (30g)" },
     
     // Nước Trái Cây - Dưa Hấu & Cam Tươi
