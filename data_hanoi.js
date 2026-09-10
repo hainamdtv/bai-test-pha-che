@@ -71,7 +71,7 @@ const hanoiBank = [
     { question: "Topping của Lục xoài sữa gồm những gì?", options: ["Puding xoài 50g, 50g thạch dừa", "Puding xoài 70g", "Thạch hồng đào 50g, thạch dừa 50g", "Puding xoài 50g, thạch atiso 50g"], answer: "Puding xoài 50g, 50g thạch dừa" },
     { question: "Trà sữa đào hồng sử dụng lượng hồng trà là bao nhiêu?", options: ["70ml", "100ml", "120ml", "150ml"], answer: "70ml" },
     { question: "Trà sữa đào hồng sử dụng lượng mứt đào hồng là bao nhiêu?", options: ["20g", "15g", "25g", "30g"], answer: "20g" },
-    { question: "Hồng trà hạt dẻ sử dụng lượng hồng trà là bao nhiêu?", options: ["70ml", "100ml", "120ml", "150ml"], answer: "70ml" },
+    { question: "Hồng trà hạt dẻ sử dụng lượng hồng trà và nước lọc là bao nhiêu?", options: ["70ml hồng trà, 50ml nước lọc", "60ml hồng trà, 30ml nước lọc", "80ml hồng trà, 50ml nước lọc", "70ml hồng trà, không nước lọc"], answer: "70ml hồng trà, 50ml nước lọc" },
     { question: "Topping của Hồng trà hạt dẻ gồm những gì?", options: ["50g thạch dừa, 40g kem hạt dẻ", "40g kem hạt dẻ, thạch hồng đào", "Chỉ có 40g kem hạt dẻ", "50g kem hạt dẻ, 50g thạch dừa"], answer: "50g thạch dừa, 40g kem hạt dẻ" },
     { question: "Trà sữa gạo sử dụng lượng trà sữa gạo là bao nhiêu?", options: ["250ml", "200ml", "300ml", "350ml"], answer: "250ml" },
     { question: "Trà sữa gạo hạt dẻ sử dụng lượng trà sữa gạo là bao nhiêu?", options: ["200ml", "250ml", "150ml", "300ml"], answer: "200ml" },
